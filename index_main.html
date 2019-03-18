@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont.css">
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/action/init.js"></script>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header style="background-color: #6da0da;" class="mui-bar mui-bar-nav">
+			<h1 id="title" style="color:#eaf2fc" class="mui-title"><b>首页</b></h1>
+		</header>
+		<nav style="background-color: #dae9fa;" class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="index_home.html">
+				<span style="color:#677b92" class="mui-icon iconfont icon-electronics"></span>
+				<span style="color:#677b92" class="mui-tab-label"><b>首页</b></span>
+			</a>
+			<a class="mui-tab-item" href="index_newsList.html">
+				<span style="color:#677b92" class="mui-icon iconfont icon-compare-copy"></span>
+				<span style="color:#677b92" class="mui-tab-label"><b>新闻</b></span>
+			</a>
+			<a class="mui-tab-item" href="index_teams.html">
+				<span style="color:#677b92" class="mui-icon iconfont icon-sports"></span>
+				<span style="color:#677b92" class="mui-tab-label"><b>球队</b></span>
+			</a>
+			<!--<a class="mui-tab-item" href="index_teamsdatadb.html">
+				<span style="color:#677b92" class="mui-icon iconfont icon-jifen"></span>
+				<span style="color:#677b92" class="mui-tab-label"><b>数据库</b></span>
+			</a>-->
+			<a class="mui-tab-item" href="index_lottery.html">
+				<span style="color:#677b92" class="mui-icon iconfont icon-productfeatures"></span>
+				<span style="color:#677b92" class="mui-tab-label"><b>彩经</b></span>
+			</a>
+			<a class="mui-tab-item" href="index_setting.html">
+				<span style="color:#677b92" class="mui-icon iconfont icon-set"></span>
+				<span style="color:#677b92" class="mui-tab-label"><b>设置</b></span>
+			</a>
+		</nav>
+		<script type="text/javascript" charset="utf-8">
+			 //mui初始化
+			mui.init();
+			var subpages = ['index_home.html', 'index_newsList.html', 'index_teams.html','index_teamsdatadb.html', 'index_lottery.html', 'index_setting.html'];
+			var subpage_style = {
+				top: '45px',
+				bottom: '51px'
+			};
+			
+			var aniShow = {};
+			
+			 //创建子页面，首个选项卡页面显示，其它均隐藏；
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				for (var i = 0; i < 6; i++) {
+					var temp = {};
+					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+					if (i > 0) {
+						sub.hide();
+					}else{
+						temp[subpages[i]] = "true";
+						mui.extend(aniShow,temp);
+					}
+					self.append(sub);
+				}
+				//打开数据库
+				var db = openDatabase('balldb', '', 'ball', 204800);
+				db.transaction(function(tx){  
+					tx.executeSql('create table if not exists user(username)', []);  
+					tx.executeSql('select * from user', [], 
+						function(tx, rs){
+						    if(rs.rows.length == 0){
+						    	$.ajax({
+									type : 'POST',
+									url : ip + 'distributionUser',
+									dataType : 'json',
+									async: false,
+									data : {model:plus.device.model},
+									success : function(data, status) {
+										tx.executeSql('insert into user values(?)', [data.userName], onSuccess, onError);
+									},
+									error : function(data, status) {
+									},
+								});
+						    }
+					    });
+				});
+				plusReady();
+			});
+			 //当前激活选项
+			var activeTab = subpages[0];
+			var title = document.getElementById("title");
+			 //选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				if (targetTab == activeTab) {
+					return;
+				}
+				//更换标题
+				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				//显示目标选项卡
+				//若为iOS平台或非首次显示，则直接显示
+				if(mui.os.ios||aniShow[targetTab]){
+					plus.webview.show(targetTab);
+				}else{
+					//否则，使用fade-in动画，且保存变量
+					var temp = {};
+					temp[targetTab] = "true";
+					mui.extend(aniShow,temp);
+					plus.webview.show(targetTab,"fade-in",300);
+				}
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			 //自定义事件，模拟点击“首页选项卡”
+			document.addEventListener('gohome', function() {
+				var defaultTab = document.getElementById("defaultTab");
+				//模拟首页点击
+				mui.trigger(defaultTab, 'tap');
+				//切换选项卡高亮
+				var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+				if (defaultTab !== current) {
+					current.classList.remove('mui-active');
+					defaultTab.classList.add('mui-active');
+				}
+			});
+		</script>
+	</body>
+
+</html>

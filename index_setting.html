@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/action/init.js"></script>
+		<style>
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.update {
+				font-style: normal;
+				color: #999999;
+				margin-right: -25px;
+				font-size: 15px
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object mui-pull-left" src="images/logo.png">
+						<div class="mui-media-body">
+							<font id="user"></font>
+							<p class='mui-ellipsis'>欢迎使用爱篮球APP</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="title">
+			</div>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li id="up" class="mui-table-view-cell">检查更新</li>
+				<!--<li class="mui-table-view-cell">
+					<a id="share" class="mui-navigate-right">分享推荐</a>
+				</li>-->
+				<li class="mui-table-view-cell">
+					<a id="about" class="mui-navigate-right">关于<i id="edition" class="mui-pull-right update"></i></a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		document.getElementById('up').addEventListener('tap', function(e) {
+			plusReady();
+		});
+
+		var wgtVer = null;
+
+		//休眠方法
+		var ver;
+
+		function sleep(numberMillis) {
+			var now = new Date();
+			var exitTime = now.getTime() + numberMillis;
+			while(true) {
+				now = new Date();
+				if(now.getTime() > exitTime)
+					return;
+			}
+		}
+
+		mui.plusReady(function() {
+			findUserName(function(tx, rs) {
+				if(rs.rows.length > 0) {
+					$("#user").text("您好：" + rs.rows.item(0).username);
+				}else{
+					$("#user").text("您好");
+				}
+			});
+			plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+				ver = inf.version;
+				$("#edition").html("V" + ver);
+			});
+			/*plus.share.getServices(function(s) {
+				if (s && s.length > 0) {
+					for (var i = 0; i < s.length; i++) {
+						var t = s[i];
+						shares[t.id] = t;
+					}
+				}
+			}, function() {
+				console.log("获取分享服务列表失败");
+			});*/
+		});
+		
+		document.querySelector('#about').addEventListener('tap', function(e) {
+			webviewContent = plus.webview.create('about.html', "new", {}, {}); //后台创建webview并打开show.html
+			webviewContent.addEventListener("loaded", function() { //注册新webview的载入完成事件
+				webviewContent.show("slide-in-right", 500); //把新webview窗体显示出来，显示动画效果为速度200毫秒的右侧移入动画
+			}, false);
+		});
+		
+		//分享链接点击事件
+		/*document.getElementById("share").addEventListener('tap', function() {
+			var ids = [{
+					id: "weixin",
+					ex: "WXSceneSession"
+				}, {
+					id: "weixin",
+					ex: "WXSceneTimeline"
+				}, {
+					id: "sinaweibo"
+				}, {
+					id: "tencentweibo"
+				}, {
+					id: "qq"
+				}],
+				bts = [{
+					title: "发送给微信好友"
+				}, {
+					title: "分享到微信朋友圈"
+				}, {
+					title: "分享到新浪微博"
+				}, {
+					title: "分享到腾讯微博"
+				}, {
+					title: "分享到QQ"
+				}];
+			plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: bts
+			}, function(e) {
+				var i = e.index;
+				if (i > 0) {
+					var s_id = ids[i - 1].id;
+					var share = shares[s_id];
+					if (share) {
+						if (share.authenticated) {
+							shareMessage(share, ids[i - 1].ex);
+						} else {
+							share.authorize(function() {
+								shareMessage(share, ids[i - 1].ex);
+							}, function(e) {
+								console.log("认证授权失败：" + e.code + " - " + e.message);
+							});
+						}
+					} else {
+						mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+					}
+				}
+			});
+		});
+
+		function shareMessage(share, ex) {
+			var msg = {
+				extra: {
+					scene: ex
+				}
+			};
+			msg.href = "http://www.dcloud.io/hellomui/";
+			msg.title = "最接近原生APP体验的高性能前端框架";
+			msg.content = "我正在体验HelloMUI，果然很流畅，基本看不出和原生App的差距";
+			if (~share.id.indexOf('weibo')) {
+				msg.content += "；体验地址：http://www.dcloud.io/hellomui/";
+			}
+			msg.thumbs = ["_www/images/logo.png"];
+			share.send(msg, function() {
+				console.log("分享到\"" + share.description + "\"成功！ ");
+			}, function(e) {
+				console.log("分享到\"" + share.description + "\"失败: " + e.code + " - " + e.message);
+			});
+		}*/
+	</script>
+
+</html>

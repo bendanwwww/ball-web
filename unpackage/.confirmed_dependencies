@@ -1,0 +1,388 @@
+{
+  "tab-webview-subpage-contact.html": {
+    "href": "tab-webview-subpage-contact.html",
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/60x60.gif"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "tab-webview-subpage-about.html": {
+    "href": "tab-webview-subpage-about.html",
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "tab-webview-subpage-setting.html": {
+    "href": "tab-webview-subpage-setting.html",
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "tab-webview-subpage-chat.html": {
+    "href": "tab-webview-subpage-chat.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "tab-webview-main.html": {
+    "href": "tab-webview-main.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "tab-webview-subpage-about.html"
+    ],
+    "refer": [
+      "tab-webview-subpage-contact.html",
+      "tab-webview-subpage-about.html",
+      "tab-webview-subpage-setting.html",
+      "tab-webview-subpage-chat.html"
+    ],
+    "priority": 0
+  },
+  "index_main.html": {
+    "resources": [
+      "js/mui.min.js",
+      "tab-webview-subpage-chat.html",
+      "fonts/mui.ttf",
+      "images/60x60.gif",
+      "css/mui.min.css",
+      "index_newsList.html",
+      "js/action/init.js",
+      "images/hupu.png",
+      "images/nba_china.png",
+      "images/sina.png",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "images/hj.png",
+      "images/mc.png",
+      "images/gw.png",
+      "images/jj.png",
+      "images/ty.png",
+      "images/ms.png",
+      "images/ktz.png",
+      "images/xl.png",
+      "images/lt.png",
+      "images/ml.png",
+      "images/lw.png",
+      "images/hx.png",
+      "images/krtr.png",
+      "images/rh.png",
+      "images/qc.png",
+      "images/hs.png",
+      "images/sll.png",
+      "images/gn.png",
+      "images/bxz.png",
+      "images/js.png",
+      "images/ys.png",
+      "images/ly.png",
+      "images/76r.png",
+      "images/qs.png",
+      "images/hr.png",
+      "images/th.png",
+      "images/xn.png",
+      "images/hf.png",
+      "images/kc.png",
+      "images/nks.png",
+      "index_home.html",
+      "js/jquery-1.8.2.min.js",
+      "images/sohu.png"
+    ],
+    "refer": [
+      "tab-webview-subpage-chat.html",
+      "tab-webview-subpage-contact.html",
+      "index_teams.html",
+      "index_lottery.html",
+      "index_newsList.html",
+      "index_setting.html",
+      "index_teamsdatadb.html",
+      "index_home.html"
+    ]
+  },
+  "index_newsList.html": {
+    "resources": [
+      "images/sina.png",
+      "images/espn.png",
+      "images/qq.png",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/action/init.js",
+      "js/action/news.js",
+      "js/jquery-1.8.2.min.js",
+      "images/nba_china.png",
+      "images/shuijiao.jpg",
+      "images/hupu.png",
+      "images/sohu.png"
+    ],
+    "refer": [
+      "newContent.html"
+    ]
+  },
+  "index_teams.html": {
+    "resources": [
+      "css/app.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/espn.png",
+      "images/qc.png",
+      "images/ly.png",
+      "images/ms.png",
+      "images/hf.png",
+      "images/rh.png",
+      "images/gn.png",
+      "images/xl.png",
+      "images/bxz.png",
+      "images/hs.png",
+      "images/qs.png",
+      "images/nks.png",
+      "images/76r.png",
+      "images/lw.png",
+      "images/ml.png",
+      "images/krtr.png",
+      "images/hj.png",
+      "images/ys.png",
+      "images/mc.png",
+      "images/sll.png",
+      "images/lt.png",
+      "images/gw.png",
+      "images/xn.png",
+      "images/hr.png",
+      "images/ty.png",
+      "images/th.png",
+      "images/jj.png",
+      "images/kc.png",
+      "images/ktz.png",
+      "images/hx.png",
+      "images/js.png",
+      "js/action/init.js",
+      "teamContent.html",
+      "js/jquery-1.8.2.min.js"
+    ],
+    "refer": [
+      "teamContent.html"
+    ]
+  },
+  "index_lottery.html": {
+    "resources": [
+      "js/mui.min.js",
+      "images/60x60.gif",
+      "css/mui.min.css",
+      "images/sinacp.png",
+      "images/qqcp.png",
+      "images/jscp.png",
+      "images/yuantiao.jpg",
+      "images/73b.png",
+      "js/action/init.js",
+      "js/jquery-1.8.2.min.js",
+      "fonts/mui.ttf",
+      "js/action/lottery.js",
+      "js/action/Dictionary.js"
+    ],
+    "refer": []
+  },
+  "newContent.html": {
+    "resources": [
+      "images/yuantiao.jpg",
+      "js/action/news.js",
+      "js/mui.min.js",
+      "js/jquery-1.8.2.min.js",
+      "fonts/mui.ttf",
+      "js/action/init.js",
+      "css/mui.min.css",
+      "images/nba_china.png",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf"
+    ],
+    "refer": []
+  },
+  "index_setting.html": {
+    "resources": [
+      "css/feedback.css",
+      "js/feedback.js",
+      "js/mui.view.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/loge.png",
+      "css/app.css",
+      "js/action/init.js",
+      "about.html",
+      "js/jquery-1.8.2.min.js",
+      "images/logo.png"
+    ],
+    "refer": [
+      "about.html"
+    ]
+  },
+  "teamContent.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/app.css",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/action/news.js",
+      "js/jquery-1.8.2.min.js",
+      "js/action/init.js",
+      "images/76r.png",
+      "js/action/teams.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "images/muwu.jpg",
+      "images/shuijiao.jpg",
+      "images/yuantiao.jpg",
+      "images/qc.png",
+      "images/bxz.png",
+      "images/nks.png",
+      "images/lt.png",
+      "images/lw.png",
+      "images/qs.png",
+      "images/hr.png",
+      "images/th.png",
+      "images/js.png",
+      "images/gn.png",
+      "images/xl.png",
+      "images/sll.png",
+      "images/hj.png",
+      "images/mc.png",
+      "images/rh.png",
+      "images/hs.png",
+      "images/kc.png",
+      "images/ml.png",
+      "images/ms.png",
+      "images/hf.png",
+      "images/krtr.png",
+      "images/ly.png",
+      "images/jj.png",
+      "images/ys.png",
+      "images/gw.png",
+      "images/xn.png",
+      "images/ktz.png",
+      "images/ty.png",
+      "images/hx.png",
+      "test.html"
+    ],
+    "refer": [
+      "playersContent.html",
+      "newContent.html",
+      "test.html"
+    ]
+  },
+  "about.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "js/action/init.js",
+      "css/mui.min.css",
+      "js/jquery-1.8.2.min.js"
+    ],
+    "refer": []
+  },
+  "index_teamsdatadb.html": {
+    "resources": [
+      "js/mui.min.js",
+      "js/action/init.js",
+      "css/mui.min.css",
+      "js/jquery-1.8.2.min.js"
+    ],
+    "refer": []
+  },
+  "playersContent.html": {
+    "resources": [
+      "js/mui.min.js",
+      "js/jquery-1.8.2.min.js",
+      "fonts/mui.ttf",
+      "js/action/init.js",
+      "css/mui.min.css",
+      "js/action/teams.js",
+      "js/action/players.js"
+    ],
+    "refer": []
+  },
+  "teamGames.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/qc.png",
+      "images/bxz.png",
+      "js/jquery-1.8.2.min.js"
+    ],
+    "refer": []
+  },
+  "index_home.html": {
+    "resources": [
+      "images/cbd.jpg",
+      "images/muwu.jpg",
+      "images/yuantiao.jpg",
+      "js/jquery-1.8.2.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/shuijiao.jpg",
+      "images/hj.png",
+      "images/qc.png",
+      "js/action/home.js",
+      "images/hupu.png",
+      "images/nba_china.png",
+      "images/sina.png",
+      "images/nks.png",
+      "images/ys.png",
+      "images/gn.png",
+      "images/mc.png",
+      "images/xl.png",
+      "images/bxz.png",
+      "images/sll.png",
+      "images/rh.png",
+      "images/gw.png",
+      "images/hs.png",
+      "images/xn.png",
+      "images/lw.png",
+      "images/kc.png",
+      "images/ml.png",
+      "images/hr.png",
+      "images/hx.png",
+      "images/ms.png",
+      "images/hf.png",
+      "images/th.png",
+      "images/krtr.png",
+      "images/js.png",
+      "images/ly.png",
+      "images/jj.png",
+      "images/76r.png",
+      "images/ktz.png",
+      "images/qs.png",
+      "images/ty.png",
+      "images/lt.png",
+      "js/mui.min.js",
+      "js/action/init.js",
+      "images/sohu.png",
+      "images/wangyi.png"
+    ],
+    "refer": [
+      "newContent.html",
+      "gamesSignal.html"
+    ]
+  },
+  "gamesSignal.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-1.8.2.min.js",
+      "fonts/mui.ttf",
+      "js/action/init.js",
+      "js/action/home.js"
+    ],
+    "refer": []
+  }
+}

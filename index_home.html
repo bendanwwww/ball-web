@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/action/init.js"></script>
+		<script src="js/action/home.js"></script>
+		<style>
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<hidden id="inDay" value="0"></hidden>
+		<div id="pullrefresh" class="mui-content">
+			<div class="title">
+				<h5><font size="3.1">最新消息</font></h5>
+			</div>
+			<ul id="topNewsList" class="mui-table-view mui-table-view-chevron">
+			</ul>
+			<div id="gameList">
+			</div>
+		</div>
+
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true, //启用右滑关闭功能
+			pullRefresh: {
+				container: '#pullrefresh',
+				up: {
+					height:50,
+					contentrefresh: '正在加载...',
+					callback: pullupRefresh
+				},
+				down: {
+					//height:50,
+			        contentdown : "下拉可以刷新",
+			        contentover : "释放立即刷新",
+			        contentrefresh : "正在刷新...",
+					callback: pulldownRefresh
+				},
+			}
+		});
+		
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			setTimeout(function() {
+				$("#inDay").attr("value", 0);
+				$("#topNewsList").html("");
+				$("#gameList").html("");
+				topList(0, 0);
+				mui('#pullrefresh').pullRefresh().refresh(true);
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+			}, 500);
+		}
+		
+		/**
+		 * 上拉加载具体业务实现
+		 */
+		function pullupRefresh() {
+			setTimeout(function() {
+				var n = $("#inDay").attr("value");
+				topList(1, n);
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //refresh completed
+			}, 500);
+		}
+		
+		mui.plusReady(function() {
+			topList(0, 0);
+		});
+		
+		mui('#topNewsList').on('tap', 'a', function() {
+			mui.openWindow({
+				url: 'newContent.html',
+				show: {
+					aniShow: true
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					newsId: this.id
+				}
+			});
+		});
+		
+		mui('#gameList').on('tap', 'a', function() {
+			mui.openWindow({
+				url: 'gamesSignal.html',
+				show: {
+					aniShow: true
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					gameId: this.id
+				}
+			});
+		});
+	</script>
+</html>

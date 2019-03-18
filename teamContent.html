@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/action/init.js"></script>
+		<script src="js/action/teams.js"></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+	</head>
+
+	<body>
+
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 531px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			table {
+				border-color: #DDDDDD;
+				border: 1px solid #dddddd;
+			}
+			table th,td {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+		</style>
+		<style>
+			.games {
+				display: flex;
+			}
+			
+			.games>div {
+				flex-grow: 1;
+				flex: 1;
+				text-align: center;
+			}
+			
+			.games div img {
+				height:65%;
+				max-width:64%;
+			}
+		</style>
+		<header style="background-color: #6da0da;" class="mui-bar mui-bar-nav">
+			<a style="color:#fff" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 style="color:#eaf2fc" class="mui-title"><b id="title"></b></h1>
+		</header>
+		<hidden id="page" value="2"></hidden>
+		<hidden id="month" value="0"></hidden>
+		<hidden id="year" value="0"></hidden>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div style="background-color: #f7fafe;" id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+						球队新闻
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						球队资料
+					<a class="mui-control-item" href="#item3mobile">
+						球队成员
+					</a>
+					<a class="mui-control-item" href="#item4mobile">
+						球队赛程
+					</a>
+				</div>
+				<div style="background-color: #7875f3;" id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div id="newsRefrush" class="mui-scroll">
+								<ul id="news" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								 <table cellpadding="0" cellspacing="1" width="100%" border="1" class="Ptable">
+									<tbody align="center">
+										<tr height="30px;">
+											<th class="tdTitle" colspan="5">基本信息</th>
+										</tr>
+										<tr height="28px;">
+											<td width="25%" colspan="2" class="tdTitle">球队名称</td>
+											<td id="teamName" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">所属城市</td>
+											<td id="teamCity" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">所属分区</td>
+											<td id="teamPartition" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">老板</td>
+											<td id="teamBoss" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">主教练</td>
+											<td id="teamCoach" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">球场</td>
+											<td id="teamVenue" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">进入NBA年份</td>
+											<td id="teamIntoNba" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">总冠军数</td>
+											<td id="teamChampionTimes" colspan="3"></td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">当前排名</td>
+											<td id="teamRanking" colspan="3"></td>
+										</tr>
+										<tr height="30px;">
+											<th class="tdTitle" colspan="5">球队数据</th>
+										</tr>
+										<tr height="28px;">
+											<th width="19%" class="tdTitle">(场均)</th>
+											<th width="19%" class="tdTitle">得分</th>
+											<th width="19%" class="tdTitle">篮板</th>
+											<th width="19%" class="tdTitle">助攻</th>
+											<th width="24%" class="tdTitle">命中率</th>
+										</tr>
+										<tr height="28px;">
+											<td>球队</td>
+											<td id="tp"></td>
+											<td id="tb"></td>
+											<td id="ta"></td>
+											<td id="ts"></td>
+										</tr>
+										<tr height="28px;">
+											<td>对手</td>
+											<td id="otp"></td>
+											<td id="otb"></td>
+											<td id="ota"></td>
+											<td id="ots"></td>
+										</tr>
+										<!-- <tr height="30px;">
+											<th class="tdTitle" colspan="5">本赛季战绩</th>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">主场战绩</td>
+											<td colspan="3">19胜6负</td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">客场战绩</td>
+											<td colspan="3">22胜6负</td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">分部战绩</td>
+											<td colspan="3">22胜8负</td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">分区战绩</td>
+											<td colspan="3">6胜4负</td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">最近十场</td>
+											<td colspan="3">7胜3负</td>
+										</tr>
+										<tr height="28px;">
+											<td colspan="2" class="tdTitle">连胜连负</td>
+											<td colspan="3">2连胜</td>
+										</tr> -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+							<div id="ttab" class="mui-scroll">
+								<a id="score" class="mui-control-item mui-active">
+									得分
+								</a>
+								<a id="backboard" class="mui-control-item">
+									篮板
+								</a>
+								<a id="assists" class="mui-control-item">
+									助攻
+								</a>
+								<a id="shoot" class="mui-control-item">
+									命中
+								</a>
+								<a id="foulShoot" class="mui-control-item">
+									罚篮
+								</a>
+								<a id="threeShoot" class="mui-control-item">
+									三分
+								</a>
+								<a id="steals" class="mui-control-item">
+									抢断
+								</a>
+								<a id="block" class="mui-control-item">
+									盖帽
+								</a>
+								<a id="fault" class="mui-control-item">
+									失误
+								</a>
+								<a id="foul" class="mui-control-item">
+									犯规
+								</a>
+							</div>
+						</div>
+						<div class="mui-slider-group">
+							<div class="mui-slider-item mui-control-content mui-active">
+								<div id="scroll1" class="mui-scroll-wrapper">
+									<div class="mui-scroll">
+										<ul id="players" class="mui-table-view">
+											<li class="mui-table-view-cell">
+												<span style="right: auto; top: 48%;" class="mui-badge mui-badge-danger">1</span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font id="nf"></font>
+												<span class="mui-badge mui-badge-inverted"><font size="3" id="pf"></font></span>
+											</li>
+											<li class="mui-table-view-cell">
+												<span style="right: auto; top: 48%;" class="mui-badge mui-badge-primary">2</span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font id="ns"></font>
+												<span class="mui-badge mui-badge-inverted"><font size="3" id="ps"></font></span>
+											</li>
+											<li class="mui-table-view-cell">
+												<span style="right: auto; top: 48%;" class="mui-badge mui-badge-warning">3</span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font id="nt"></font>
+												<span class="mui-badge mui-badge-inverted"><font size="3" id="pt"></font></span>
+											</li>
+											<div id="nextList"></div>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div style="background-color: #efeff4;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+							<ul id="ha" style="margin: 0px;" class="mui-pager">
+								<li class="mui-previous">
+									<a id="up" style="padding: 6px 14px; margin-top: 3px; margin-left: 3px; color: #000000; border: 0px; background-color: #efeff4;">
+										<b style="font-size: 114%; color: #163961;">上个月</b>
+									</a>
+								</li>
+								<li class="mui-next">
+									<a id="down" style="padding: 6px 14px; margin-top: 3px; margin-right: 3px; color: #000000; border: 0px; background-color: #efeff4;">
+										<b style="font-size: 114%; color: #163961;">下个月</b>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="mui-slider-group">
+							<div class="mui-slider-item mui-control-content mui-active">
+								<div id="scroll4" class="mui-scroll-wrapper">
+									<div class="mui-scroll">
+										<ul id="games" class="mui-table-view">
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var teamId;
+			mui.init({
+				swipeBack: false
+			});
+			mui.plusReady(function() {
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				var self = plus.webview.currentWebview();
+				var date = new Date();
+				var month = $("#month").attr("value");
+				var year = $("#year").attr("value");
+				if(month == 0){
+					month = Number(date.getMonth()) + 1;
+					$("#month").attr("value", month);
+				}
+				if(year == 0){
+					year = date.getFullYear();
+					$("#year").attr("value", year);
+				}
+				teamId = self.teamId;
+				teamContent(teamId);
+				teamsNews(teamId, 1);
+				teamGames(teamId, year, month);
+			});
+			mui('#ha').on('tap', 'a', function(e) {
+				var month = $("#month").attr("value");
+				var year = $("#year").attr("value");
+				if(month == 12 && this.id == "down"){
+					year = Number(year) + 1;
+					month = 1;
+					$("#month").attr("value", month);
+					$("#year").attr("value", year);
+				}else{
+					if(month == 1 && this.id == "up"){
+						year = Number(year) - 1;
+						month = 12;
+						$("#month").attr("value", month);
+						$("#year").attr("value", year);
+					}else{
+						if(this.id == "up"){
+							month = Number(month) - 1;
+							$("#month").attr("value", month);
+						}else{
+							month = Number(month) + 1;
+							$("#month").attr("value", month);
+						}
+					}
+				}
+				$("#games").html("");
+				teamGames(teamId, year, month);
+			});
+			mui('#news').on('tap', 'li', function(e) {
+				mui.openWindow({
+					url: 'newContent.html',
+					show: {
+						aniShow: true
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						newsId: this.id
+					}
+				});
+			});
+			mui('#ttab').on('tap', 'a', function(e) {
+				teamPlayers(teamId, this.id);
+			});
+			mui('#players').on('tap', 'li', function(e) {
+				mui.openWindow({
+					url: "playersContent.html",
+					show: {
+						aniShow: true
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						playerId: this.id
+					}
+				});
+			});
+			/*mui('#games').on('tap', 'a', function(e) {
+				var href = this.id;
+				if (href) {
+					if (window.plus) {
+						plus.runtime.openURL(href);
+					} else {
+						location.href = href;
+					}
+				}
+			});*/
+			(function($) {
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if(this.checked) {
+						sliderSegmentedControl.className = 'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
+						//force repaint
+						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
+					}
+				});
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('#newsRefrush'), function(index, pullRefreshEl) {
+						$(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										document.getElementById("news").innerHTML = "";
+										teamsNews(teamId, 1);
+										document.getElementById("page").setAttribute("value", 2);
+										self.refresh(true);
+										self.endPullDownToRefresh(); //refresh completed
+									}, 500);
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var pageNo = document.getElementById("page").getAttribute("value");
+										var b = teamsNews(teamId, pageNo);
+										document.getElementById("page").setAttribute("value", Number(pageNo) + 1);
+										self.endPullUpToRefresh(b);
+									}, 500);
+								}
+							}
+						});
+					});
+				});
+			})(mui);
+		</script>
+
+	</body>
+
+</html>

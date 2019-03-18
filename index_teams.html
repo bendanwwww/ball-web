@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<style rel="stylesheet" type="text/css" >
+			#top ul{text-align:center;list-style-type:none;}
+			#top ul li{display:inline;list-style-type:none;}
+		</style>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/action/init.js"></script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="top">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						东南赛区
+					</li>
+				</ul>
+			</div>
+	        <ul id="teamList" class="mui-table-view mui-grid-view mui-grid-9">
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="1">
+	                    <span class="mui-icon"><img src="images/qc.png" /></span>
+	                    <div class="mui-media-body">奇才</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="2">
+	                    <span class="mui-icon"><img src="images/ly.png" /></span>
+	                    <div class="mui-media-body">老鹰</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="3">
+	                    <span class="mui-icon"><img src="images/hf.png" /></span>
+	                    <div class="mui-media-body">黄蜂</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="4">
+	                    <span class="mui-icon"><img src="images/rh.png" /></span>
+	                    <div class="mui-media-body">热火</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="5">
+	                    <span class="mui-icon"><img src="images/ms.png" /></span>
+	                    <div class="mui-media-body">魔术</div></a></li>
+	                    
+		        <div id="top">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							中部赛区
+						</li>
+					</ul>
+				</div>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="6">
+	                    <span class="mui-icon"><img src="images/qs.png" /></span>
+	                    <div class="mui-media-body">骑士</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="7">
+	                    <span class="mui-icon"><img src="images/bxz.png" /></span>
+	                    <div class="mui-media-body">步行者</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="8">
+	                    <span class="mui-icon"><img src="images/gn.png" /></span>
+	                    <div class="mui-media-body">公牛</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="9">
+	                    <span class="mui-icon"><img src="images/hs.png" /></span>
+	                    <div class="mui-media-body">活塞</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="10">
+	                    <span class="mui-icon"><img src="images/xl.png" /></span>
+	                    <div class="mui-media-body">雄鹿</div></a></li>
+	            <div id="top">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							大西洋赛区
+						</li>
+					</ul>
+				</div>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="11">
+	                    <span class="mui-icon"><img src="images/krtr.png" /></span>
+	                    <div class="mui-media-body">凯尔特人</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="12">
+	                    <span class="mui-icon"><img src="images/ml.png" /></span>
+	                    <div class="mui-media-body">猛龙</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="13">
+	                    <span class="mui-icon"><img src="images/nks.png" /></span>
+	                    <div class="mui-media-body">尼克斯</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="14">
+	                    <span class="mui-icon"><img src="images/76r.png" /></span>
+	                    <div class="mui-media-body">76人</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="15">
+	                    <span class="mui-icon"><img src="images/lw.png" /></span>
+	                    <div class="mui-media-body">篮网</div></a></li>
+	            <div id="top">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							太平洋赛区
+						</li>
+					</ul>
+				</div>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="16">
+	                    <span class="mui-icon"><img src="images/ys.png" /></span>
+	                    <div class="mui-media-body">勇士</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="17">
+	                    <span class="mui-icon"><img src="images/kc.png" /></span>
+	                    <div class="mui-media-body">快船</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="18">
+	                    <span class="mui-icon"><img src="images/gw.png" /></span>
+	                    <div class="mui-media-body">国王</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="19">
+	                    <span class="mui-icon"><img src="images/hr.png" /></span>
+	                    <div class="mui-media-body">湖人</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="20">
+	                    <span class="mui-icon"><img src="images/ty.png" /></span>
+	                    <div class="mui-media-body">太阳</div></a></li>
+	            <div id="top">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							西北赛区
+						</li>
+					</ul>
+				</div>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="21">
+	                    <span class="mui-icon"><img src="images/js.png" /></span>
+	                    <div class="mui-media-body">爵士</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="22">
+	                    <span class="mui-icon"><img src="images/lt.png" /></span>
+	                    <div class="mui-media-body">雷霆</div></a></li>
+	     		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="23">
+	                    <span class="mui-icon"><img src="images/ktz.png" /></span>
+	                    <div class="mui-media-body">开拓者</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="24">
+	                    <span class="mui-icon"><img src="images/jj.png" /></span>
+	                    <div class="mui-media-body">掘金</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="25">
+	                    <span class="mui-icon"><img src="images/sll.png" /></span>
+	                    <div class="mui-media-body">森林狼</div></a></li>
+	            <div id="top">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							西南赛区
+						</li>
+					</ul>
+				</div>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="26">
+	                    <span class="mui-icon"><img src="images/mc.png" /></span>
+	                    <div class="mui-media-body">马刺</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="27">
+	                    <span class="mui-icon"><img src="images/hj.png" /></span>
+	                    <div class="mui-media-body">火箭</div></a></li>
+	     		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="28">
+	                    <span class="mui-icon"><img src="images/hx.png" /></span>
+	                    <div class="mui-media-body">灰熊</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a id="29">
+	                    <span class="mui-icon"><img src="images/xn.png" /></span>
+	                    <div class="mui-media-body">小牛</div></a></li>
+	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="teamContent.html" id="30">
+	                    <span class="mui-icon"><img src="images/th.png" /></span>
+	                    <div class="mui-media-body">鹈鹕</div></a></li>
+	        </ul> 
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+		mui('#teamList').on('tap', 'a', function() {
+			mui.openWindow({
+				url: "teamContent.html",
+				show: {
+					aniShow: true
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					teamId: this.id
+				}
+			});
+		});
+	</script>
+</html>

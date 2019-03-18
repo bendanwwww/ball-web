@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/action/init.js"></script>
+		<script src="js/action/home.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">直播源</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<ul id="signalList" class="mui-table-view">
+					
+				</ul>
+			</div>
+			<h5>&nbsp;&nbsp;&nbsp;*请优先使用UC浏览器</h5>
+			<h5>&nbsp;&nbsp;&nbsp;*若浏览器无法播放视频,请下载<a id="flash">flash插件</a></h5>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+		mui.plusReady(function() {
+			plus.webview.currentWebview().setStyle({
+				scrollIndicator: 'none'
+			});
+			var self = plus.webview.currentWebview();
+			var gameId = self.gameId;
+			signalList(gameId);
+		});
+		
+		mui('#signalList').on('tap', 'li', function(e) {
+			var href = this.id;
+			if (href) {
+				if (window.plus) {
+					plus.runtime.openURL(href);
+				} else {
+					location.href = href;
+				}
+			}
+		});
+		
+		document.getElementById('flash').addEventListener('tap', function(e) {
+			plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+				var w = plus.nativeUI.showWaiting("正在下载flash...", plus.nativeUI.WaitingOptions);
+				var dtask = plus.downloader.createDownload("http://123.57.251.72:8080/apk/AdobeFlashPlayer111_111115081.apk", {}, function(d, status) {
+					if(status == 200) {
+						w.close();
+						plus.nativeUI.toast("正在准备环境，请稍后！");
+						sleep(1000);
+						var path = d.filename; //下载apk
+						plus.runtime.install(path); // 自动安装apk文件
+					} else {
+						alert('下载失败:' + status);
+					}
+				});
+				dtask.start();
+			});
+		});
+		
+		function sleep(numberMillis) {
+			var now = new Date();
+			var exitTime = now.getTime() + numberMillis;
+			while(true) {
+				now = new Date();
+				if(now.getTime() > exitTime)
+					return;
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/action/init.js"></script>
+		<script src="js/action/players.js"></script>
+		
+		<style>
+			table {
+				border-color: #DDDDDD;
+				border: 1px solid #dddddd;
+			}
+			table th,td {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<header style="background-color: #6da0da;" class="mui-bar mui-bar-nav">
+			<a style="color:#fff" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 style="color:#eaf2fc" class="mui-title">球员</h1>
+		</header>
+		<div class="mui-content">
+			<div style="background-color: #f3f7fc;" class="mui-card">
+				<ul style="background-color: #f3f7fc;" class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">基本信息</a>
+						<div class="mui-collapse-content">
+							 <table cellpadding="0" cellspacing="1" width="100%" border="1">
+								<tbody align="center">
+									<tr height="28px;">
+										<td width="34%" colspan="2" rowspan="6" class="tdTitle"><img id="pic" width="100%" /></td>
+										<td width="30%" id="teamName">姓名</td>
+										<td width="36%" id="chineseName"></td>
+									</tr>
+									<tr height="28px;">
+										<td class="tdTitle">英文原名</td>
+										<td id="englishName"></td>
+									</tr>
+									<tr height="28px;">
+										<td class="tdTitle">国籍</td>
+										<td id="country"></td>
+									</tr>
+									<tr height="28px;">
+										<td class="tdTitle">球衣号码</td>
+										<td id="number"></td>
+									</tr>
+									<tr height="28px;">
+										<td class="tdTitle">位置</td>
+										<td id="position"></td>
+									</tr>
+									<tr height="28px;">
+										<td class="tdTitle">出生日期</td>
+										<td id="birthday"></td>
+									</tr>
+									<tr height="28px;">
+										<td colspan="2" class="tdTitle">学校</td>
+										<td id="school" colspan="2"></td>
+									</tr>
+									<tr height="28px;">
+										<td colspan="2" class="tdTitle">身高</td>
+										<td id="height" colspan="2"></td>
+									</tr>
+									<tr height="28px;">
+										<td colspan="2" class="tdTitle">体重</td>
+										<td id="weight" colspan="2"></td>
+									</tr>
+									<tr height="28px;">
+										<td colspan="2" class="tdTitle">选秀情况</td>
+										<td id="draft" colspan="2"></td>
+									</tr>
+									<tr height="28px;">
+										<td colspan="2" class="tdTitle">本赛季薪金</td>
+										<td id="salary" colspan="2"></td>
+									</tr>
+									<tr height="28px;">
+										<td colspan="2" class="tdTitle">合同状况</td>
+										<td id="contract" colspan="2"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</li>
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">基本数据</a>
+						<div class="mui-collapse-content">
+							<table cellpadding="0" cellspacing="1" width="100%" border="1">
+								<tbody align="center">
+									<tr height="40px;">
+										<td id="showTime"></td>
+										<td id="theFirst"></td>
+										<td id="score"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="shoot"></td>
+										<td id="hit"></td>
+										<td id="shot"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="threeShoot"></td>
+										<td id="threeHit"></td>
+										<td id="threeShot"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="foulShoot"></td>
+										<td id="foulHit"></td>
+										<td id="foulShot"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="backboard"></td>
+										<td id="ffBackboard"></td>
+										<td id="bbBackboard"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="assists"></td>
+										<td id="steals"></td>
+										<td id="block"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="fault"></td>
+										<td id="foul"></td>
+										<td id="times"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</li>
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">进阶数据</a>
+						<div class="mui-collapse-content">
+							<table cellpadding="0" cellspacing="1" width="100%" border="1">
+								<tbody align="center">
+									<tr height="40px;">
+										<td width="33.3%" id="trr"></td>
+										<td width="33.4%" id="ftrr"></td>
+										<td width="33.3%" id="btrr"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="arr"></td>
+										<td id="srr"></td>
+										<td id="brr"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="frr"></td>
+										<td id="urr"></td>
+										<td id="oerr"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="drr"></td>
+										<td id="ws"></td>
+										<td id="oews"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="dws"></td>
+										<td id="ttao"></td>
+										<td id="dunk"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="per"></td>
+										<td id="se"></td>
+										<td id="sd"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="tvShoot"></td>
+										<td id="tvHit"></td>
+										<td id="tvShot"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="ssShoot"></td>
+										<td id="ssHit"></td>
+										<td id="ssShot"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="mmShoot"></td>
+										<td id="mmHit"></td>
+										<td id="mmShot"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="hhShoot"></td>
+										<td id="hhHit"></td>
+										<td id="hhShot"></td>
+									</tr>
+									<tr height="40px;">
+										<td id="trueShoot"></td>
+										<td colspan="2"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script>
+			var playerId;
+		
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			
+			mui.plusReady(function() {
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				var self = plus.webview.currentWebview();
+				playerId = self.playerId;
+				playerContent(playerId);
+			});
+		</script>
+	</body>
+
+</html>
